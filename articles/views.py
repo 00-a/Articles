@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from apps.articles.services import get_articles, get_context_from_articles
+from articles.services import get_articles, get_context_from_articles
 
 
 class MainPageView(TemplateView):
