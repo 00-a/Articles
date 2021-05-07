@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main>
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light"><strong>Articles</strong></h1>
+                    {% if user.is_authenticated %}
+                        <p> Hello {{ user.get_username }}</p>
+                        <a href="" class="btn btn-primary my-2">Go to your
+                            articles</a>
+                    {% else %}
+                        <a href="" class="btn btn-primary my-2">Sign in</a>
+                        <a href="" class="btn btn-secondary my-2">Sign up</a>
+                    {% endif %}
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        {% if articles %}
+            <div class="album">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+                    {% for article in articles %}
+                        <div class="col">
+                            <div class="card h-100" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="{{ article.get_absolute_url }}">
+                                        <strong>{{ article.title|truncatechars:45 }}</strong> </a></h5>
+                                    <p class="card-text">{{ article.text|truncatechars:200 }}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">
+                                        Author: <a
+                                            href="">{{ article.author }}</a>
+                                        <br> Create date: {{ article.create_date }}
+                                        <br> Change date: {{ article.change_date }}
+                                        <br> tags:
+                                        {% for tag in article.tags.all %}
+                                            {{ tag }}
+                                        {% endfor %}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </main>
+{% endblock content %}
