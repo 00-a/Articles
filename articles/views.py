@@ -12,3 +12,11 @@ class MainPageView(TemplateView):
         articles = get_articles()
         return render(request, self.template_name, get_context_from_articles(articles))
 
+
+class ArticleDetailView(TemplateView):
+    """Full text of the article"""
+    template_name = 'articles/article_detail.html'
+
+    def get(self, request, pk):
+        article = get_articles(pk=pk)
+        return render(request, self.template_name, get_context_from_articles(article))

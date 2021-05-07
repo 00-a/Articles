@@ -27,7 +27,7 @@
                     {% if user.is_authenticated %}
                         <h4 class="text-white">{{ user.get_username }}</h4>
                         <ul class="list-unstyled">
-                            <li><a href="{% url 'logout' %}?next={{ request.path }}">
+                            <li><a href="?next={{ request.path }}">
                                 <strong>Logout</strong></a>
                             </li>
                         </ul>
