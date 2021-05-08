@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
           integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
-
-    <!-- Custom css -->
+    <!-- Bootstrap core CSS -->
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'articles/css/main.css' %}">
     <title>Articles</title>
 </head>
@@ -27,7 +27,7 @@
                     {% if user.is_authenticated %}
                         <h4 class="text-white">{{ user.get_username }}</h4>
                         <ul class="list-unstyled">
-                            <li><a href="?next={{ request.path }}">
+                            <li><a href="{% url 'logout' %}?next={{ request.path }}">
                                 <strong>Logout</strong></a>
                             </li>
                         </ul>

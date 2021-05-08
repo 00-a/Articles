@@ -11,7 +11,7 @@
                         <a href="" class="btn btn-primary my-2">Go to your
                             articles</a>
                     {% else %}
-                        <a href="" class="btn btn-primary my-2">Sign in</a>
+                        <a href="{% url 'login' %}" class="btn btn-primary my-2">Sign in</a>
                         <a href="{% url 'registration' %}" class="btn btn-secondary my-2">Sign up</a>
                     {% endif %}
                     </p>

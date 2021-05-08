@@ -5,7 +5,6 @@ import environ
 
 from pathlib import Path
 
-
 # Read .env file
 env = environ.Env()
 environ.Env.read_env()
@@ -119,3 +118,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TEMPLATE_DIRS = [
     os.path.join(BASE_DIR, 'templates/')
 ]
+
+# Redirect url after authentication
+LOGIN_REDIRECT_URL = '/'
