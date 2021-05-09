@@ -4,6 +4,7 @@ import environ
 
 from pathlib import Path
 
+
 # Read .env file
 env = environ.Env()
 environ.Env.read_env()
