@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
-from articles.forms import RegistrationForm
-from articles.services import get_articles, get_context_from_articles
+from articles.forms import RegistrationForm, ArticleForm
+from articles.services import get_articles, get_context_from_articles, create_or_update_article
 
 
 class MainPageView(TemplateView):
@@ -33,6 +34,25 @@ class ArticleDetailView(TemplateView):
     def get(self, request, pk):
         article = get_articles(pk=pk)
         return render(request, self.template_name, get_context_from_articles(article))
+
+
+class NewArticleView(LoginRequiredMixin, TemplateView):
+    """Create a new article"""
+    template_name = 'articles/new_article.html'
+
+    def get(self, request):
+        form = ArticleForm
+        context = {
+            'form': form,
+            'message': 'Create a new article'
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            create_or_update_article(form=form, request=request)
+        return redirect('allArticlesByUser', slug_username=request.user)
 
 
 class UserRegistrationView(TemplateView):
