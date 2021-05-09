@@ -16,3 +16,6 @@ db.sqlite3
 
 # django-environment settins
 .env
+
+# static admin files. To add: manage.py collectstatic
+static/admin
