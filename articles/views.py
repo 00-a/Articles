@@ -15,6 +15,17 @@ class MainPageView(TemplateView):
         return render(request, self.template_name, get_context_from_articles(articles))
 
 
+class AllArticlesByUserView(TemplateView):
+    """All articles by user"""
+    template_name = 'articles/all_articles_by_user.html'
+
+    def get(self, request, slug_username):
+        articles = get_articles(author__username=slug_username)
+        context = get_context_from_articles(articles)
+        context.update({'articles_owner': slug_username})
+        return render(request, self.template_name, context)
+
+
 class ArticleDetailView(TemplateView):
     """Full text of the article"""
     template_name = 'articles/article_detail.html'
