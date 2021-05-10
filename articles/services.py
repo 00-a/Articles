@@ -12,6 +12,10 @@ def create_or_update_article(form, request) -> None:
     form.save_m2m()
 
 
+def delete_article(article: Article) -> None:
+    article.delete()
+
+
 def get_context_from_articles(articles: 'QuerySet') -> dict:
     """Get article(s) if it exists, else get message"""
     return {'articles': articles} if articles else {'message': 'Article(s) does not exist(s)'}

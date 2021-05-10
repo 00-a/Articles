@@ -33,7 +33,7 @@
                                 <div class="card-footer">
                                     <small class="text-muted">
                                         Author: <a
-                                            href="">{{ article.author }}</a>
+                                            href="{% url 'allArticlesByUser' article.author %}">{{ article.author }}</a>
                                         <br> Create date: {{ article.create_date }}
                                         <br> Change date: {{ article.change_date }}
                                         <br> tags:

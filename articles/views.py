@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
 from articles.forms import RegistrationForm, ArticleForm
-from articles.services import get_articles, get_context_from_articles, create_or_update_article
+from articles.services import get_articles, get_context_from_articles, create_or_update_article, delete_article
 
 
 class MainPageView(TemplateView):
@@ -80,6 +80,33 @@ class EditArticleView(LoginRequiredMixin, TemplateView):
         if form.is_valid():
             create_or_update_article(form=form, request=request)
         return redirect(article.get_absolute_url())
+
+
+class DeleteArticleView(LoginRequiredMixin, TemplateView):
+    """Delete article"""
+    template_name = 'articles/article_delete.html'
+
+    def get(self, request, pk):
+        article = get_articles(pk=pk)[0]
+        if article:
+            if request.user != article.author and not request.user.is_staff:
+                context = {
+                    'success': False,
+                    'message': 'You don\'t have permission for that'
+                }
+                return render(request, self.template_name, context)
+            context = {
+                'success': True,
+                'message': f'Are you sure you want to delete {article.title}'
+            }
+        else:
+            context = get_context_from_articles(article)
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        article = get_articles(pk=pk)[0]
+        delete_article(article)
+        return redirect('allArticlesByUser', slug_username=article.author)
 
 
 class UserRegistrationView(TemplateView):
