@@ -35,7 +35,7 @@
                                             article</a>
                                         {% if user.is_authenticated %}
                                             {% if user.get_username == articles_owner or user.is_staff %}
-                                                <a href="" class="btn btn-primary">Edit</a>
+                                                <a href="{% url 'articleEdit' article.pk %}" class="btn btn-primary">Edit</a>
                                                 <a href="" class="btn btn-danger">Delete</a>
                                             {% endif %}
                                         {% endif %}

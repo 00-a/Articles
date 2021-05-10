@@ -55,6 +55,33 @@ class NewArticleView(LoginRequiredMixin, TemplateView):
         return redirect('allArticlesByUser', slug_username=request.user)
 
 
+class EditArticleView(LoginRequiredMixin, TemplateView):
+    """Edit article"""
+    template_name = 'articles/article_edit.html'
+
+    def get(self, request, pk):
+        article = get_articles(pk=pk)[0]
+        if article:
+            if request.user != article.author and not request.user.is_staff:
+                context = {'message': 'You don\'t have permission for that'}
+                return render(request, self.template_name, context)
+            form = ArticleForm(instance=article)
+            context = {
+                'form': form,
+                'message': 'Edit you article'
+            }
+        else:
+            context = get_context_from_articles(article)
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        article = get_articles(pk=pk)[0]
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            create_or_update_article(form=form, request=request)
+        return redirect(article.get_absolute_url())
+
+
 class UserRegistrationView(TemplateView):
     """New user registration"""
     template_name = 'registration/registration.html'

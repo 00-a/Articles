@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if form %}
+        <form method="POST">
+            {% csrf_token %}
+            <strong> Title </strong>
+            {{ form.title }}
+            <br>
+            <strong> Text </strong>
+            {{ form.text }}
+            <br>
+            {{ form.tags }}
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    {% endif %}
+{% endblock content %}
