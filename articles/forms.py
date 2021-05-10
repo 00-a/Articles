@@ -21,7 +21,7 @@ class ArticleForm(ModelForm):
 
 
 class RegistrationForm(UserCreationForm):
-    """New user registration form"""
+    """User registration form"""
     password1 = CharField(widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
     password2 = CharField(widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password Again'}))
 

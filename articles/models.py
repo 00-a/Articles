@@ -4,7 +4,6 @@ from django.urls import reverse
 
 
 class Article(models.Model):
-    """Article"""
     title = models.CharField(max_length=100)
     text = models.TextField()
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
