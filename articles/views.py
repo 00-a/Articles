@@ -2,8 +2,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
+from .models import Comment
 
-from articles.forms import RegistrationForm, ArticleForm
+from articles.forms import RegistrationForm, ArticleForm, CommentForm
 from articles.services import get_articles, get_context_from_articles, create_or_update_article, delete_article
 
 
@@ -33,7 +34,19 @@ class ArticleDetailView(TemplateView):
 
     def get(self, request, pk):
         article = get_articles(pk=pk)
-        return render(request, self.template_name, get_context_from_articles(article))
+        form = CommentForm
+        context = get_context_from_articles(article)
+        context.update({'form': form})
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article_id = pk
+            comment.author = request.user
+            comment.save()
+        return redirect('articleDetail', pk=pk)
 
 
 class NewArticleView(LoginRequiredMixin, TemplateView):
