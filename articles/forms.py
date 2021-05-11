@@ -1,6 +1,6 @@
 from django.forms import TextInput, PasswordInput, CharField, ModelForm, Textarea, CheckboxSelectMultiple
 
-from .models import User, Article
+from .models import User, Article, Comment
 from django.contrib.auth.forms import UserCreationForm
 
 
@@ -32,5 +32,18 @@ class RegistrationForm(UserCreationForm):
             'username': TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Nickname'
+            })
+        }
+
+
+class CommentForm(ModelForm):
+    """Article comment form"""
+
+    class Meta:
+        model = Comment
+        fields = ('text',)
+        widgets = {
+            'text': Textarea(attrs={
+                'class': 'form-control'
             })
         }
