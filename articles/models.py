@@ -37,8 +37,9 @@ class Tag(models.Model):
 class Comment(models.Model):
     """Comment for article"""
 
-    text = models.TextField(max_length=1000, verbose_name='Comment_text')
-    author = models.ForeignKey(User, on_delete=models.CASCADE(), verbose_name='Comment_author')
+    article = models.ForeignKey('Article', on_delete=models.CASCADE, verbose_name='article')
+    text = models.TextField(max_length=1000, verbose_name='comment_text')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='comment_author')
     create_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
