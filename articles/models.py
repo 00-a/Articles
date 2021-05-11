@@ -32,3 +32,15 @@ class Tag(models.Model):
     class Meta:
         verbose_name = "Tag"
         verbose_name_plural = "Tags"
+
+
+class Comment(models.Model):
+    """Comment for article"""
+
+    text = models.TextField(max_length=1000, verbose_name='Comment_text')
+    author = models.ForeignKey(User, on_delete=models.CASCADE(), verbose_name='Comment_author')
+    create_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Comment"
+        verbose_name_plural = "Comments"
