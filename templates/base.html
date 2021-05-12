@@ -12,6 +12,9 @@
     <!-- Bootstrap core CSS -->
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'articles/css/main.css' %}">
+    <!-- Custom css -->
+    {% block css %}
+    {% endblock %}
     <title>Articles</title>
 </head>
 <body>
@@ -39,7 +42,7 @@
     <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
             <a href="{% url 'mainPage' %}" class="navbar-brand d-flex align-items-center">
-            <strong>Articles</strong>
+                <strong>Articles</strong>
             </a>
 
             </ul>
@@ -51,8 +54,8 @@
     </div>
 </header>
 <div class="container">
-<br>
-<h2><strong>{{ message }}</strong></h2>
+    <br>
+    <h2><strong>{{ message }}</strong></h2>
     {% block content %}
     {% endblock content %}
 </div>
